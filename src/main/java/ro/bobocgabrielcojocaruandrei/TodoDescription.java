@@ -1,4 +1,4 @@
-package ro.bobocgabrielcojocaruandrei.model;
+package ro.bobocgabrielcojocaruandrei;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

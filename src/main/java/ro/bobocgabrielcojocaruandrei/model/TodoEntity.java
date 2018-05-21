@@ -1,33 +1,40 @@
 package ro.bobocgabrielcojocaruandrei.model;
 
+import ro.bobocgabrielcojocaruandrei.TodoDescription;
+
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.time.Instant;
 
+@Entity
 public class TodoEntity {
-    private TodoId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     @Valid
+    @Embedded
     private TodoDescription todoDescription;
 
     @NotNull
     private boolean todoDone;
 
-    private Instant  todoDate;
+    @NotNull
+    private String  todoDate;
 
-    public Instant getTodoDate() {
+    public String getTodoDate() {
         return todoDate;
     }
 
-    public void setTodoDate(Instant todoDate) {
+    public void setTodoDate(String todoDate) {
         this.todoDate = todoDate;
     }
 
-    public TodoId getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(TodoId id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
