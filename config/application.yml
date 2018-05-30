@@ -1,0 +1,11 @@
+server.port: 8080
+
+spring.datasource:
+   driverClassName: org.postgresql.Driver
+   url: jdbc:postgresql://localhost/todo_store
+   username: todo_store
+   password: test1234
+
+spring.jpa:
+   database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+   show-sql: true

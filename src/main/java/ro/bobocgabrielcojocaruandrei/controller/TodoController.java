@@ -1,6 +1,5 @@
 package ro.bobocgabrielcojocaruandrei.controller;
 
-import jdk.management.resource.ResourceRequestDeniedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +13,7 @@ import ro.bobocgabrielcojocaruandrei.model.TodoEntity;
 import ro.bobocgabrielcojocaruandrei.repository.TodoRepository;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class TodoController {
@@ -41,14 +41,14 @@ public class TodoController {
 
     @RequestMapping(value = "todo", method = RequestMethod.PUT)
     public @ResponseBody TodoEntity putTodo(@PathVariable Long todoId, @Valid TodoEntity todoEntity){
-        TodoEntity newTodoEntity = todoRepository.findById(todoId).orElseThrow(ResourceRequestDeniedException::new);
-        newTodoEntity.setTodoDescription(todoEntity.getTodoDescription());
-        newTodoEntity.setTodoDate(todoEntity.getTodoDate());
-        newTodoEntity.setTodoDone(todoEntity.isTodoDone());
+        Optional<TodoEntity> newTodoEntity = todoRepository.findById(todoId);
+        newTodoEntity.get().setTodoDescription(todoEntity.getTodoDescription());
+        newTodoEntity.get().setTodoDate(todoEntity.getTodoDate());
+        newTodoEntity.get().setTodoDone(todoEntity.isTodoDone());
 
-        todoRepository.save(newTodoEntity);
+        todoRepository.save(newTodoEntity.get());
 
-        return newTodoEntity;
+        return newTodoEntity.get();
     }
 
     @RequestMapping(value = "todos/{todoId}", method = RequestMethod.DELETE)
